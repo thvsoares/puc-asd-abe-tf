@@ -4,16 +4,23 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Atacadista.Controllers
+namespace Lojista.Controllers
 {
+    /// <summary>
+    /// Controla as operações do lojista
+    /// </summary>
     [Route("api/[controller]")]
-    public class ValuesController : Controller
+    public class LojistaController : Controller
     {
-        // GET api/values
+        /// <summary>
+        /// Recupera os valores do estoque atual
+        /// </summary>
+        /// <returns>Dados do estoque atual</returns>
         [HttpGet]
-        public IEnumerable<string> Get()
+        [Route("estoque")]
+        public IEnumerable<string> BuscarEstoque()
         {
-            return new string[] { "value1", "value2" };
+            return new string[] { "value1", "estoque" };
         }
 
         // GET api/values/5

@@ -4,10 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Lojista.Controllers
+namespace Atacadista.Controllers
 {
+    /// <summary>
+    /// Controla as operações do atacadista
+    /// </summary>
     [Route("api/[controller]")]
-    public class ValuesController : Controller
+    public class AtacadistaController : Controller
     {
         // GET api/values
         [HttpGet]
