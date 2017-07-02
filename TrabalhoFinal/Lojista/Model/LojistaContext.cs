@@ -13,6 +13,7 @@ namespace Lojista.Model
         {
         }
 
-        public DbSet<Estoque> Estoque { get; set; }
+        public DbSet<Estoque> Estoques { get; set; }
+        public DbSet<Produto> Produtos { get; set; }
     }
 }
