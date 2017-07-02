@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Lojista.Model
 {
@@ -18,7 +15,7 @@ namespace Lojista.Model
         int GravarProdutos(List<Produto> produtos);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         List<Estoque> ConsultarEstoque();

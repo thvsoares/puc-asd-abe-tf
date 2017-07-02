@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Atacadista.Model
+﻿namespace Atacadista.Model
 {
     /// <summary>
     /// Entrada de produto num pedido

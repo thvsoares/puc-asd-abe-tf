@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Atacadista.Model
+﻿namespace Atacadista.Model
 {
     /// <summary>
     /// Estados dos pedidos
     /// </summary>
-    public enum EstadoPedido: byte
+    public enum EstadoPedido : byte
     {
         /// <summary>
         /// Estado inicial de um pedido
