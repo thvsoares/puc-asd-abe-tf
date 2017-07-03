@@ -34,8 +34,9 @@ namespace Lojista.Controllers
         /// <summary>
         /// Cadastra um produto com um id específico
         /// </summary>
+        /// <param name="id">Código do produto</param>
         /// <param name="produto">Dados do produto a ser cadastrado</param>
-        [HttpPut]
+        [HttpPut("{id}")]
         public void Put(int id, [FromBody]Produto produto)
         {
             produto.Id = id;
