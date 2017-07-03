@@ -14,7 +14,7 @@ namespace Lojista.Model
             _context = context;
         }
 
-        public List<Estoque> ConsultarEstoque()
+        public List<Estoque> BuscarEstoque()
         {
             return _context.Estoques.ToList();
         }
@@ -31,6 +31,11 @@ namespace Lojista.Model
             _context.Produtos.Add(produto);
             _context.SaveChanges();
             return produto.Id;
+        }
+
+        public List<Produto> BuscarProdutos()
+        {
+            return _context.Produtos.ToList();
         }
     }
 }

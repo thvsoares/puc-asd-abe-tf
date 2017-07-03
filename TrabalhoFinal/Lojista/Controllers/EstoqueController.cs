@@ -28,7 +28,7 @@ namespace Lojista.Controllers
         [HttpGet]
         public IEnumerable<Estoque> Get()
         {
-            return _lojistaRepository.ConsultarEstoque();
+            return _lojistaRepository.BuscarEstoque();
         }
 
         // GET api/values/5

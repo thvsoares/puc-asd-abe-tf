@@ -22,26 +22,24 @@ namespace Lojista.Controllers
         }
 
         /// <summary>
-        /// Cadastra um produto
+        /// Recupera a lista de produtos cadastrados
+        /// </summary>
+        /// <returns>Lista de produtos cadastrados</returns>
+        [HttpGet]
+        public List<Produto> Get()
+        {
+            return _lojistaRepository.BuscarProdutos();
+        }
+
+        /// <summary>
+        /// Cadastra um produto com um id específico
         /// </summary>
         /// <param name="produto">Dados do produto a ser cadastrado</param>
-        [HttpPost]
+        [HttpPut]
         public void Put(int id, [FromBody]Produto produto)
         {
             produto.Id = id;
             _lojistaRepository.GravarProduto(produto);
-        }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }

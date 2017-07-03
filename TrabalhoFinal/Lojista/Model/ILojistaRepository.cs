@@ -15,6 +15,12 @@ namespace Lojista.Model
         int GravarProduto(Produto produto);
 
         /// <summary>
+        /// Recupera a lista de produtos
+        /// </summary>
+        /// <returns>Dados dos produtos</returns>
+        List<Produto> BuscarProdutos();
+
+        /// <summary>
         /// Grava uma entrade de estoque referente a um produto
         /// </summary>
         /// <param name="estoque">Dados do estoque com id do produto</param>
@@ -22,9 +28,9 @@ namespace Lojista.Model
         int GravarEstoque(Estoque estoque);
 
         /// <summary>
-        ///
+        /// Recupera a lista de registros de estoque
         /// </summary>
-        /// <returns></returns>
-        List<Estoque> ConsultarEstoque();
+        /// <returns>Dados do estoque</returns>
+        List<Estoque> BuscarEstoque();
     }
 }
