@@ -41,11 +41,13 @@ namespace UnitTestLojista.Controller
 
             Assert.AreEqual(0, novoPeido.Id);
             Assert.AreEqual(0, _lojistaRepository.BuscarPedidos().Count);
+            Assert.AreEqual(1, _atacadistaRepository.IdPedido);
 
             var idPedido = _controller.Post(novoPeido);
 
             Assert.AreEqual(1, idPedido);
             Assert.AreEqual(1, _lojistaRepository.BuscarPedidos().Count);
+            Assert.AreEqual(2, _atacadistaRepository.IdPedido);
         }
     }
 }
