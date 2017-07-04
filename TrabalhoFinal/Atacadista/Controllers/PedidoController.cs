@@ -8,7 +8,7 @@ namespace Atacadista.Controllers
     /// Gerência os pedidos recebidos dos lojistas
     /// </summary>
     [Route("api/[controller]")]
-    public class PedidosController : Controller
+    public class PedidoController : Controller
     {
         private IAtacadistaRepository _atacadistaRepository;
 
@@ -16,7 +16,7 @@ namespace Atacadista.Controllers
         /// Construtor com injeção de depêndencia
         /// </summary>
         /// <param name="atacadistaRepository">Repositório do atacadista</param>
-        public PedidosController(IAtacadistaRepository atacadistaRepository)
+        public PedidoController(IAtacadistaRepository atacadistaRepository)
         {
             _atacadistaRepository = atacadistaRepository;
         }
@@ -37,7 +37,7 @@ namespace Atacadista.Controllers
         /// <param name="pedido">Dados de pedido</param>
         /// <returns>Sequencial do pedido gravado</returns>
         [HttpPost]
-        public int Post([FromForm]Pedido pedido)
+        public int Post([FromBody]Pedido pedido)
         {
             return _atacadistaRepository.GravarPedido(pedido);
         }
