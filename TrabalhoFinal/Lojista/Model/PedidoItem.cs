@@ -1,4 +1,6 @@
-﻿namespace Lojista.Model
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Lojista.Model
 {
     /// <summary>
     /// Entrada de produto num pedido
@@ -8,6 +10,7 @@
         /// <summary>
         /// Código do pedido
         /// </summary>
+        [Key]
         public int Id { get; set; }
 
         /// <summary>
