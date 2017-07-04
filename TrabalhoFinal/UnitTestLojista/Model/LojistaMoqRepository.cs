@@ -1,6 +1,7 @@
 ﻿using Lojista.Model;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace UnitTestLojista.Model
 {
@@ -13,6 +14,11 @@ namespace UnitTestLojista.Model
         public List<Estoque> BuscarEstoque()
         {
             return _estoque;
+        }
+
+        public Pedido BuscarPedido(int id)
+        {
+            return _pedidos.Single(s => s.Id == id);
         }
 
         public List<Pedido> BuscarPedidos()

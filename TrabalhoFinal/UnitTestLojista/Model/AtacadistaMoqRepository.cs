@@ -6,9 +6,9 @@ namespace UnitTestLojista.Model
     {
         public int IdPedido { get; set; } = 1;
 
-        public int OrcamentoAceito { get; set; }
+        public int OrcamentoAceito { get; set; } = 0;
 
-        public int OrcamentoRejeitado { get; set; }
+        public int OrcamentoRejeitado { get; set; } = 0;
 
         public void AceitarOrcamento(int id)
         {

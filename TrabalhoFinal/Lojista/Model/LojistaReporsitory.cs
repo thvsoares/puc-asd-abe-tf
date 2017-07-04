@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Lojista.Model
@@ -46,6 +47,11 @@ namespace Lojista.Model
         public List<Pedido> BuscarPedidos()
         {
             return _context.Pedidos.ToList();
+        }
+
+        public Pedido BuscarPedido(int id)
+        {
+            return _context.Pedidos.Single(s => s.Id == id);
         }
     }
 }

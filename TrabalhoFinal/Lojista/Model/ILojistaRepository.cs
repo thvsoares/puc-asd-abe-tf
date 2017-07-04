@@ -45,5 +45,12 @@ namespace Lojista.Model
         /// </summary>
         /// <returns>Dados dos pedidos</returns>
         List<Pedido> BuscarPedidos();
+
+        /// <summary>
+        /// Recupera o pedido informado
+        /// </summary>
+        /// <param name="id">Código do pedido</param>
+        /// <returns>Dados do pedido</returns>
+        Pedido BuscarPedido(int id);
     }
 }

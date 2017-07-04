@@ -28,6 +28,9 @@ namespace UnitTestLojista.Controller
             _lojistaRepository.GravarEstoque(new Estoque() { Quantidade = 02, Produto = _lojistaRepository.BuscarProdutos().Single(s => s.Id == 2) });
         }
 
+        /// <summary>
+        /// Realiza o teste do item 2
+        /// </summary>
         [TestMethod]
         public void RealizarPeido()
         {

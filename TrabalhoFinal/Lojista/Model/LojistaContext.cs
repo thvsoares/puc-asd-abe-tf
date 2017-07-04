@@ -11,5 +11,6 @@ namespace Lojista.Model
         public DbSet<Estoque> Estoques { get; set; }
         public DbSet<Produto> Produtos { get; set; }
         public DbSet<Pedido> Pedidos { get; set; }
+        public DbSet<Orcamento> Orcamentos { get; set; }
     }
 }
