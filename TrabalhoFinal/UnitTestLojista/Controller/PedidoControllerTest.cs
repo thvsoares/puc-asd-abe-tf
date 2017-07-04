@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace UnitTestLojista.Controller
 {
     [TestClass]
-    public class LojistaControllerTest
+    public class PedidoControllerTest
     {
         public AtacadistaMoqRepository _atacadistaRepository;
         public LojistaMoqRepository _lojistaRepository;
