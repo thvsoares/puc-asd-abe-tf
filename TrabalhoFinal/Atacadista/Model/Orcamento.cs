@@ -28,10 +28,5 @@ namespace Atacadista.Model
         /// Data prevista de entrega
         /// </summary>
         public DateTime PrevisaoEntrega { get; set; }
-
-        /// <summary>
-        /// Pedido do orçamento
-        /// </summary>
-        public Pedido Pedido { get; set; }
     }
 }
