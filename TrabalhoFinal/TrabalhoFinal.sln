@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lojista", "Lojista\Lojista.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTestLojista", "UnitTestLojista\UnitTestLojista.csproj", "{8989A482-BABC-4CF0-9564-FEE3D6F41D10}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestAtacadista", "UnitTestAtacadista\UnitTestAtacadista.csproj", "{EA264AEF-E310-45C5-AAC2-A6AF0D07A8A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTestAtacadista", "UnitTestAtacadista\UnitTestAtacadista.csproj", "{EA264AEF-E310-45C5-AAC2-A6AF0D07A8A1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTest", "IntegrationTest\IntegrationTest.csproj", "{13AF3CF4-AA95-48CA-85D2-64F54CAB5E4E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{EA264AEF-E310-45C5-AAC2-A6AF0D07A8A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA264AEF-E310-45C5-AAC2-A6AF0D07A8A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA264AEF-E310-45C5-AAC2-A6AF0D07A8A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13AF3CF4-AA95-48CA-85D2-64F54CAB5E4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13AF3CF4-AA95-48CA-85D2-64F54CAB5E4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13AF3CF4-AA95-48CA-85D2-64F54CAB5E4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13AF3CF4-AA95-48CA-85D2-64F54CAB5E4E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
