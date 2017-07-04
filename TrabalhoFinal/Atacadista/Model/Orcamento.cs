@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Atacadista.Model
 {
@@ -10,6 +11,7 @@ namespace Atacadista.Model
         /// <summary>
         /// Código do orçamento
         /// </summary>
+        [Key]
         public int Id { get; set; }
 
         /// <summary>

@@ -19,5 +19,25 @@ namespace Atacadista.Model
         /// </summary>
         /// <returns>Dados dos produtos</returns>
         List<Produto> BuscarProdutos();
+
+        /// <summary>
+        /// Recupera a lista de pedidos
+        /// </summary>
+        /// <returns>Dados dos pedidos</returns>
+        List<Pedido> BuscarPedidos();
+
+        /// <summary>
+        /// Recupera um pedido
+        /// </summary>
+        /// <param name="id">Código do pedido</param>
+        /// <returns>Dados do pedido</returns>
+        Pedido BuscarPedido(int id);
+
+        /// <summary>
+        /// Grava um pedido
+        /// </summary>
+        /// <param name="pedido">Dados do pedido</param>
+        /// <returns>Sequencial do pedido</returns>
+        int GravarPedido(Pedido pedido);
     }
 }

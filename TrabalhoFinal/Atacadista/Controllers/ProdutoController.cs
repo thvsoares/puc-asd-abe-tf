@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace Atacadista.Controllers
 {
     /// <summary>
-    /// Gerência o cadastro de produtos do lojista
+    /// Gerência o cadastro de produtos do atacadista
     /// </summary>
     [Route("api/[controller]")]
     public class ProdutoController : Controller
@@ -15,7 +15,7 @@ namespace Atacadista.Controllers
         /// <summary>
         /// Construtor com injeção de depêndencia
         /// </summary>
-        /// <param name="lojistaRepository">Repositório do atacadista</param>
+        /// <param name="atacadistaRepository">Repositório do atacadista</param>
         public ProdutoController(IAtacadistaRepository atacadistaRepository)
         {
             _atacadistaRepository = atacadistaRepository;
