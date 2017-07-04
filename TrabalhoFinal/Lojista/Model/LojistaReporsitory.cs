@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Lojista.Model
 {
@@ -36,6 +34,18 @@ namespace Lojista.Model
         public List<Produto> BuscarProdutos()
         {
             return _context.Produtos.ToList();
+        }
+
+        public int GravarPedido(Pedido pedido)
+        {
+            _context.Pedidos.Add(pedido);
+            _context.SaveChanges();
+            return pedido.Id;
+        }
+
+        public List<Pedido> BuscarPedidos()
+        {
+            return _context.Pedidos.ToList();
         }
     }
 }

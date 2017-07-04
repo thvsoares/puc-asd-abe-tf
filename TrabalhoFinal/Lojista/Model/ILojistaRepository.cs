@@ -32,5 +32,18 @@ namespace Lojista.Model
         /// </summary>
         /// <returns>Dados do estoque</returns>
         List<Estoque> BuscarEstoque();
+
+        /// <summary>
+        /// Grava um pedido com seus itens
+        /// </summary>
+        /// <param name="pedido">Dados do pedido e itens</param>
+        /// <returns>Sequencia do pedido gravado</returns>
+        int GravarPedido(Pedido pedido);
+
+        /// <summary>
+        /// Recupera a lista de pedidos
+        /// </summary>
+        /// <returns>Dados dos pedidos</returns>
+        List<Pedido> BuscarPedidos();
     }
 }
