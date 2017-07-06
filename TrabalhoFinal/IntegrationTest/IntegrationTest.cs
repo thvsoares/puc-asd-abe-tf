@@ -12,6 +12,9 @@ namespace IntegrationTest
     [TestClass]
     public class IntegrationTest
     {
+        /// <summary>
+        /// Realiza o fluxo completo descrito no trabalho final
+        /// </summary>
         [TestMethod]
         public void TesteIntegracao()
         {
@@ -26,17 +29,46 @@ namespace IntegrationTest
                 var caminhoProdutoLojista = caminhoLojista + "/api/Produto";
 
                 var produto = new Atacadista.Model.Produto() { Id = 1, Nome = "Teste1", Valor = 1 };
-                var jsonProduto = JsonConvert.SerializeObject(produto);
 
-                client.PutAsync(caminhoProdutoAtacadista + "/1", new StringContent(jsonProduto, Encoding.UTF8, "application/json")).Wait();
+                // Grava o produto no atacadista
+                Put(client, caminhoProdutoAtacadista + "/1", produto);
 
-                var jsonProdutoGravado = client.GetStringAsync(caminhoProdutoAtacadista).Result;
-                var produtoGravado = JsonConvert.DeserializeObject<List<Atacadista.Model.Produto>>(jsonProdutoGravado).Single();
+                // Recupera os produtos do atacadista e chama single que retorna apenas e existir apenas um produto
+                // Abortaria com uma excption caso contrário
+                var produtoGravado = Get<List<Atacadista.Model.Produto>>(client, caminhoProdutoAtacadista).Single();
 
+                // Verifica se os dados do produto do atacadista continuam os mesmos
                 Assert.AreEqual(1, produtoGravado.Id);
                 Assert.AreEqual("Teste1", produtoGravado.Nome);
                 Assert.AreEqual(1, produtoGravado.Valor);
             }
+        }
+
+        /// <summary>
+        /// Recupera um recurso com get numa uri
+        /// </summary>
+        /// <typeparam name="T">Tipo do recurso a ser recuperado</typeparam>
+        /// <param name="client">HttpClient a ser usado</param>
+        /// <param name="uri">Caminho do recurso a ser recuperado</param>
+        /// <returns>Recurso recuperado no formado informado</returns>
+        private T Get<T>(HttpClient client, string uri)
+        {
+            var json = client.GetStringAsync(uri).Result;
+            return JsonConvert.DeserializeObject<T>(json);
+        }
+
+        /// <summary>
+        /// Grava um recurso com put numa uri
+        /// </summary>
+        /// <param name="client">HttpClient a ser usado</param>
+        /// <param name="uri">Camiho do recurso a ser gravado</param>
+        /// <param name="obj">Recurso a ser gravado</param>
+        /// <returns>Resultado da gravação</returns>
+        private HttpResponseMessage Put(HttpClient client, string uri, object obj)
+        {
+            var json = JsonConvert.SerializeObject(obj);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            return client.PutAsync(uri, content).Result;
         }
     }
 }

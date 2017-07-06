@@ -41,5 +41,20 @@ namespace Atacadista.Model
         {
             return _context.Pedidos.Single(s => s.Id == id);
         }
+
+        public List<Orcamento> BuscarOrcamentos()
+        {
+            return _context.Pedidos
+                .Where(w => w.Orcamento != null)
+                .Select(s => s.Orcamento)
+                .ToList();
+        }
+
+        public void MudarEstadoPedido(int id, EstadoPedido estado)
+        {
+            var pedido = _context.Pedidos.Single(s => s.Id == id);
+            pedido.Estado = estado;
+            _context.SaveChanges();
+        }
     }
 }

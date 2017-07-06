@@ -1,6 +1,7 @@
 ﻿using Atacadista.Model;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace UnitTestAtacadista.Model
 {
@@ -8,6 +9,13 @@ namespace UnitTestAtacadista.Model
     {
         private List<Pedido> _pedidos = new List<Pedido>();
         private List<Produto> _produtos = new List<Produto>();
+
+        public List<Orcamento> BuscarOrcamentos()
+        {
+            return _pedidos.Where(w => w.Orcamento != null)
+                .Select(s => s.Orcamento)
+                .ToList();
+        }
 
         public Pedido BuscarPedido(int id)
         {
@@ -38,6 +46,11 @@ namespace UnitTestAtacadista.Model
             _produtos = _produtos.Where(w => w.Id != produto.Id).ToList();
             _produtos.Add(produto);
             return produto.Id;
+        }
+
+        public void MudarEstadoPedido(int id, EstadoPedido estado)
+        {
+            _pedidos.Single(s => s.Id == id).Estado = estado;
         }
     }
 }

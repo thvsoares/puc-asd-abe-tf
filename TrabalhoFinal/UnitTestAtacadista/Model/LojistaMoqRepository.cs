@@ -7,6 +7,14 @@ namespace UnitTestAtacadista.Model
 {
     public class LojistaMoqRepository : ILojistaRepository
     {
-        
+        public void NotificarMudancaPedido(int id, EstadoPedido solicitado)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void PropostaOrcamento(Orcamento orcamento)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
