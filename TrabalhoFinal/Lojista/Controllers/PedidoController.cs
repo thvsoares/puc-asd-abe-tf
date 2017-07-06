@@ -37,5 +37,16 @@ namespace Lojista.Controllers
             _lojistaRepository.GravarPedido(pedido);
             return pedido.Id;
         }
+
+        /// <summary>
+        /// Atualiza o estado de um pedido
+        /// </summary>
+        /// <param name="id">Sequencial do pedido</param>
+        /// <param name="estado">Estado do pedido</param>
+        [HttpPut("AtualizarEstado/{id}/{estado}")]
+        public void PatchAtualizarEstado(int id, EstadoPedido estado)
+        {
+            _lojistaRepository.AtualizarEstadoPedido(id, estado);
+        }
     }
 }

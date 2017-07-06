@@ -54,7 +54,7 @@ namespace Atacadista.Controllers
         /// Aceita o orçamento informado
         /// </summary>
         /// <param name="id">Código do orçamento</param>
-        [HttpPatch("aceitar/{id}")]
+        [HttpPut("aceitar/{id}")]
         public void PatchAceitar(int id)
         {
             var pedido = _atacadistaRepository.BuscarPedidos().Single(s => s.Orcamento?.Id == id);
@@ -66,7 +66,7 @@ namespace Atacadista.Controllers
         /// Rejeita o orçamento informado
         /// </summary>
         /// <param name="id">Código do orçamento</param>
-        [HttpPatch("rejeitar/{id}")]
+        [HttpPut("rejeitar/{id}")]
         public void PatchRejeitar(int id)
         {
             var pedido = _atacadistaRepository.BuscarPedidos().Single(s => s.Orcamento?.Id == id);

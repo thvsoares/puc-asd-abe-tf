@@ -11,6 +11,11 @@ namespace UnitTestLojista.Model
         private List<Pedido> _pedidos = new List<Pedido>();
         private List<Produto> _produtos = new List<Produto>();
 
+        public void AtualizarEstadoPedido(int id, EstadoPedido estado)
+        {
+            _pedidos.Single(s => s.Id == id).Estado = estado;
+        }
+
         public List<Estoque> BuscarEstoque()
         {
             return _estoque;

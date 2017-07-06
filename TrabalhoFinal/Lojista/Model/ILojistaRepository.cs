@@ -52,5 +52,12 @@ namespace Lojista.Model
         /// <param name="id">Código do pedido</param>
         /// <returns>Dados do pedido</returns>
         Pedido BuscarPedido(int id);
+
+        /// <summary>
+        /// Atualiza o estado de um pedido
+        /// </summary>
+        /// <param name="id">Sequencial do pedido</param>
+        /// <param name="estado">Novo estado de pedido</param>
+        void AtualizarEstadoPedido(int id, EstadoPedido estado);
     }
 }

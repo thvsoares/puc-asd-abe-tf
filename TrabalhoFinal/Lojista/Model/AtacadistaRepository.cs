@@ -15,17 +15,19 @@ namespace Lojista.Model
 
         public void AceitarOrcamento(int id)
         {
-            throw new NotImplementedException();
+            Put($"{UrlAtacadista}/orcamento/aceitar/{id}", null);
         }
 
         public void RejeitarOrcamento(int id)
         {
-            throw new NotImplementedException();
+            Put($"{UrlAtacadista}/orcamento/rejeitar/{id}", null);
         }
 
         public int SolicitacaoPedido(Pedido pedido)
         {
-            throw new NotImplementedException();
+            var result = Post($"{UrlAtacadista}/pedido", pedido);
+            var id = JsonConvert.DeserializeObject<int>(result.Content.ReadAsStringAsync().Result);
+            return id;
         }
 
         /// <summary>

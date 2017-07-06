@@ -13,14 +13,14 @@ namespace Atacadista.Model
         private static string _urlLojista;
         public string UrlLojista { get => _urlLojista; set => _urlLojista = value; }
 
-        public void NotificarMudancaPedido(int id, EstadoPedido solicitado)
+        public void NotificarMudancaPedido(int id, EstadoPedido estado)
         {
-            throw new NotImplementedException();
+            Put($"{UrlLojista}/Pedido/AtualizarEstado/{id}/{estado}", null);
         }
 
         public void PropostaOrcamento(Orcamento orcamento)
         {
-            throw new NotImplementedException();
+            Put($"{UrlLojista}/Orcamento/{orcamento.IdPedido}", null);
         }
 
         /// <summary>
