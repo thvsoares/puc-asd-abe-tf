@@ -18,10 +18,6 @@ namespace IntegrationTest
         [TestMethod]
         public void TesteIntegracao()
         {
-            using (var client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-
                 var caminhoAtacadista = "http://localhost:50396";
                 var caminhoProdutoAtacadista = caminhoAtacadista + "/api/Produto";
 
@@ -31,44 +27,66 @@ namespace IntegrationTest
                 var produto = new Atacadista.Model.Produto() { Id = 1, Nome = "Teste1", Valor = 1 };
 
                 // Grava o produto no atacadista
-                Put(client, caminhoProdutoAtacadista + "/1", produto);
+                Put(caminhoProdutoAtacadista + "/1", produto);
 
                 // Recupera os produtos do atacadista e chama single que retorna apenas e existir apenas um produto
                 // Abortaria com uma excption caso contrário
-                var produtoGravado = Get<List<Atacadista.Model.Produto>>(client, caminhoProdutoAtacadista).Single();
+                var produtoGravado = Get<List<Atacadista.Model.Produto>>(caminhoProdutoAtacadista).Single();
 
                 // Verifica se os dados do produto do atacadista continuam os mesmos
                 Assert.AreEqual(1, produtoGravado.Id);
                 Assert.AreEqual("Teste1", produtoGravado.Nome);
                 Assert.AreEqual(1, produtoGravado.Valor);
-            }
         }
 
         /// <summary>
         /// Recupera um recurso com get numa uri
         /// </summary>
         /// <typeparam name="T">Tipo do recurso a ser recuperado</typeparam>
-        /// <param name="client">HttpClient a ser usado</param>
         /// <param name="uri">Caminho do recurso a ser recuperado</param>
         /// <returns>Recurso recuperado no formado informado</returns>
-        private T Get<T>(HttpClient client, string uri)
+        private T Get<T>(string uri)
         {
-            var json = client.GetStringAsync(uri).Result;
-            return JsonConvert.DeserializeObject<T>(json);
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+                var json = client.GetStringAsync(uri).Result;
+                return JsonConvert.DeserializeObject<T>(json);
+            }
         }
 
         /// <summary>
         /// Grava um recurso com put numa uri
         /// </summary>
-        /// <param name="client">HttpClient a ser usado</param>
         /// <param name="uri">Camiho do recurso a ser gravado</param>
         /// <param name="obj">Recurso a ser gravado</param>
         /// <returns>Resultado da gravação</returns>
-        private HttpResponseMessage Put(HttpClient client, string uri, object obj)
+        private HttpResponseMessage Put(string uri, object obj)
         {
-            var json = JsonConvert.SerializeObject(obj);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-            return client.PutAsync(uri, content).Result;
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+                var json = JsonConvert.SerializeObject(obj);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                return client.PutAsync(uri, content).Result;
+            }
+        }
+
+        /// <summary>
+        /// Grava um recurso com post numa uri
+        /// </summary>
+        /// <param name="uri">Camiho do recurso a ser gravado</param>
+        /// <param name="obj">Recurso a ser gravado</param>
+        /// <returns>Resultado da gravação</returns>
+        private HttpResponseMessage Post(string uri, object obj)
+        {
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+                var json = JsonConvert.SerializeObject(obj);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                return client.PostAsync(uri, content).Result;
+            }
         }
     }
 }
