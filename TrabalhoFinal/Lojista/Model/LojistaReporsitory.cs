@@ -53,5 +53,10 @@ namespace Lojista.Model
         {
             return _context.Pedidos.Single(s => s.Id == id);
         }
+
+        public void AtualizarEstadoPedido(int id, EstadoPedido estado)
+        {
+            _context.Pedidos.Single(s => s.Id == id).Estado = estado;
+        }
     }
 }

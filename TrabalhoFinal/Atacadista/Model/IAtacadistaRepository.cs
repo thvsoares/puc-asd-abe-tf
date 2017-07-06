@@ -21,6 +21,12 @@ namespace Atacadista.Model
         List<Produto> BuscarProdutos();
 
         /// <summary>
+        /// Recupera a lista de oreçamentos
+        /// </summary>
+        /// <returns>Dados dos orçamentos</returns>
+        List<Orcamento> BuscarOrcamentos();
+
+        /// <summary>
         /// Recupera a lista de pedidos
         /// </summary>
         /// <returns>Dados dos pedidos</returns>
@@ -39,5 +45,12 @@ namespace Atacadista.Model
         /// <param name="pedido">Dados do pedido</param>
         /// <returns>Sequencial do pedido</returns>
         int GravarPedido(Pedido pedido);
+
+        /// <summary>
+        /// Muda o estado de um pedido
+        /// </summary>
+        /// <param name="id">Id do pedido</param>
+        /// <param name="estado">Novo estado do pedido</param>
+        void MudarEstadoPedido(int id, EstadoPedido estado);
     }
 }

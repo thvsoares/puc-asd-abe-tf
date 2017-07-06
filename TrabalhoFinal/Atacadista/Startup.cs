@@ -30,6 +30,7 @@ namespace Atacadista
             // Data repository
             services.AddDbContext<AtacadistaContext>(opt => opt.UseInMemoryDatabase());
             services.AddSingleton<IAtacadistaRepository, AtacadistaReporsitory>();
+            services.AddSingleton<ILojistaRepository, LojistaRepository>();
 
             // Add framework services.
             services.AddMvc();

@@ -1,42 +1,33 @@
+ï»¿using Newtonsoft.Json;
 using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Net.Http;
-using System.Runtime.Serialization.Json;
-using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace IntegrationTest
+namespace Lojista.Model
 {
-    [TestClass]
-    public class IntegrationTest
+    public class AtacadistaRepository : IAtacadistaRepository
     {
-        /// <summary>
-        /// Realiza o fluxo completo descrito no trabalho final
-        /// </summary>
-        [TestMethod]
-        public void TesteIntegracao()
+        private static string _urlAtacadista;
+        public string UrlAtacadista { get => _urlAtacadista; set => _urlAtacadista = value; }
+
+        public void AceitarOrcamento(int id)
         {
-                var caminhoAtacadista = "http://localhost:50396";
-                var caminhoProdutoAtacadista = caminhoAtacadista + "/api/Produto";
+            Put($"{UrlAtacadista}/orcamento/aceitar/{id}", null);
+        }
 
-                var caminhoLojista = "http://localhost:50404/";
-                var caminhoProdutoLojista = caminhoLojista + "/api/Produto";
+        public void RejeitarOrcamento(int id)
+        {
+            Put($"{UrlAtacadista}/orcamento/rejeitar/{id}", null);
+        }
 
-                var produto = new Atacadista.Model.Produto() { Id = 1, Nome = "Teste1", Valor = 1 };
-
-                // Grava o produto no atacadista
-                Put(caminhoProdutoAtacadista + "/1", produto);
-
-                // Recupera os produtos do atacadista e chama single que retorna apenas e existir apenas um produto
-                // Abortaria com uma excption caso contrário
-                var produtoGravado = Get<List<Atacadista.Model.Produto>>(caminhoProdutoAtacadista).Single();
-
-                // Verifica se os dados do produto do atacadista continuam os mesmos
-                Assert.AreEqual(1, produtoGravado.Id);
-                Assert.AreEqual("Teste1", produtoGravado.Nome);
-                Assert.AreEqual(1, produtoGravado.Valor);
+        public int SolicitacaoPedido(Pedido pedido)
+        {
+            var result = Post($"{UrlAtacadista}/pedido", pedido);
+            var id = JsonConvert.DeserializeObject<int>(result.Content.ReadAsStringAsync().Result);
+            return id;
         }
 
         /// <summary>
@@ -60,7 +51,7 @@ namespace IntegrationTest
         /// </summary>
         /// <param name="uri">Camiho do recurso a ser gravado</param>
         /// <param name="obj">Recurso a ser gravado</param>
-        /// <returns>Resultado da gravação</returns>
+        /// <returns>Resultado da gravaÃ§Ã£o</returns>
         private HttpResponseMessage Put(string uri, object obj)
         {
             using (var client = new HttpClient())
@@ -77,7 +68,7 @@ namespace IntegrationTest
         /// </summary>
         /// <param name="uri">Camiho do recurso a ser gravado</param>
         /// <param name="obj">Recurso a ser gravado</param>
-        /// <returns>Resultado da gravação</returns>
+        /// <returns>Resultado da gravaÃ§Ã£o</returns>
         private HttpResponseMessage Post(string uri, object obj)
         {
             using (var client = new HttpClient())

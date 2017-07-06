@@ -11,6 +11,7 @@ namespace Atacadista.Controllers
     public class PedidoController : Controller
     {
         private IAtacadistaRepository _atacadistaRepository;
+        private ILojistaRepository _lojistaRepository;
 
         /// <summary>
         /// Construtor com injeção de depêndencia
@@ -40,6 +41,28 @@ namespace Atacadista.Controllers
         public int Post([FromBody]Pedido pedido)
         {
             return _atacadistaRepository.GravarPedido(pedido);
+        }
+
+        /// <summary>
+        /// Muda o estado de um pedido para em fabricação e notifica o cliente
+        /// </summary>
+        /// <param name="id">Código do pedido</param>
+        [HttpPut("fabricar/{id}")]
+        public void PutFabricar(int id)
+        {
+            _atacadistaRepository.MudarEstadoPedido(id, EstadoPedido.EmFabricacao);
+            _lojistaRepository.NotificarMudancaPedido(id, EstadoPedido.EmFabricacao);
+        }
+
+        /// <summary>
+        /// Muda o estado de um pedido para despachado e notifica o cliente
+        /// </summary>
+        /// <param name="id">Código do pedido</param>
+        [HttpPut("despachar/{id}")]
+        public void PutDespachar(int id)
+        {
+            _atacadistaRepository.MudarEstadoPedido(id, EstadoPedido.Despachado);
+            _lojistaRepository.NotificarMudancaPedido(id, EstadoPedido.Despachado);
         }
     }
 }
