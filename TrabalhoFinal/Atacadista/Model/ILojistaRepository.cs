@@ -8,6 +8,11 @@ namespace Atacadista.Model
     public interface ILojistaRepository
     {
         /// <summary>
+        /// Caminho base o serviço de lojista
+        /// </summary>
+        string UrlLojista { get; set; }
+
+        /// <summary>
         /// Envia a proposta de orçamento para o lojista
         /// </summary>
         /// <param name="orcamento">Dados do orçamento</param>

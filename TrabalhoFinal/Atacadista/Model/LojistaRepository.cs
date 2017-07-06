@@ -1,13 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using System;
-using Atacadista.Model;
+using System.Threading.Tasks;
 
-namespace UnitTestAtacadista.Model
+namespace Atacadista.Model
 {
-    public class LojistaMoqRepository : ILojistaRepository
+    public class LojistaRepository : ILojistaRepository
     {
-        public string UrlLojista { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        private static string _urlLojista;
+        public string UrlLojista { get => _urlLojista; set => _urlLojista = value; }
 
         public void NotificarMudancaPedido(int id, EstadoPedido solicitado)
         {
