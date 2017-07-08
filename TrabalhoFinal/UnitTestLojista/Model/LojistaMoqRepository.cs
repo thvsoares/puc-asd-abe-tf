@@ -21,6 +21,11 @@ namespace UnitTestLojista.Model
             return _estoque;
         }
 
+        public Estoque BuscarEstoquePorProduto(int id)
+        {
+            return _estoque.SingleOrDefault(s => s.Produto.Id == id);
+        }
+
         public Pedido BuscarPedido(int id)
         {
             return _pedidos.Single(s => s.Id == id);
@@ -29,6 +34,11 @@ namespace UnitTestLojista.Model
         public List<Pedido> BuscarPedidos()
         {
             return _pedidos;
+        }
+
+        public Produto BuscarProduto(int id)
+        {
+            return _produtos.Single(s => s.Id == id);
         }
 
         public List<Produto> BuscarProdutos()

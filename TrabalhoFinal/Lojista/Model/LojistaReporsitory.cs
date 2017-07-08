@@ -58,5 +58,15 @@ namespace Lojista.Model
         {
             _context.Pedidos.Single(s => s.Id == id).Estado = estado;
         }
+
+        public Estoque BuscarEstoquePorProduto(int id)
+        {
+            return _context.Estoques.SingleOrDefault(s => s.Produto.Id == id);
+        }
+
+        public Produto BuscarProduto(int id)
+        {
+            return _context.Produtos.Single(s => s.Id == id);
+        }
     }
 }

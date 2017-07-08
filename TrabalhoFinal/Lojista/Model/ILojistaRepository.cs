@@ -28,6 +28,20 @@ namespace Lojista.Model
         int GravarEstoque(Estoque estoque);
 
         /// <summary>
+        /// Recupera a entrada de estoque com a quantidade do produto informado
+        /// </summary>
+        /// <param name="id">Código do produto</param>
+        /// <returns>Dados do estoque</returns>
+        Estoque BuscarEstoquePorProduto(int id);
+
+        /// <summary>
+        /// Recupera um produto pelo seu código
+        /// </summary>
+        /// <param name="id">Código do produto</param>
+        /// <returns>Dados do produto</returns>
+        Produto BuscarProduto(int id);
+
+        /// <summary>
         /// Recupera a lista de registros de estoque
         /// </summary>
         /// <returns>Dados do estoque</returns>

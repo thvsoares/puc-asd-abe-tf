@@ -30,5 +30,31 @@ namespace Lojista.Controllers
         {
             return _lojistaRepository.BuscarEstoque();
         }
+
+        /// <summary>
+        /// Cria ou atualiza uma entrada de estoque para um código de produto
+        /// </summary>
+        /// <param name="id">Código do produto</param>
+        /// <param name="estoque">Dados da entrada de estoque</param>
+        /// <returns>Sequencial da entrada de estoque criada/atualizada</returns>
+        [HttpPut("{id}")]
+        public int Put(int id, [FromBody]Estoque estoque)
+        {
+            var estoqueLocal = _lojistaRepository.BuscarEstoquePorProduto(id);
+
+            if (estoqueLocal == null)
+            {
+                estoqueLocal = estoque;
+                estoque.Produto = _lojistaRepository.BuscarProduto(id);
+            }
+            else
+            {
+                estoqueLocal.Quantidade = estoque.Quantidade;
+            }
+
+            _lojistaRepository.GravarEstoque(estoqueLocal);
+
+            return estoqueLocal.Id;
+        }
     }
 }

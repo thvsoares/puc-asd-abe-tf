@@ -23,6 +23,7 @@ namespace IntegrationTest
 
             var caminhoLojista = "http://localhost:50404/";
             var caminhoProdutoLojista = caminhoLojista + "/api/Produto";
+            var caminhoProdutoEstoque = caminhoLojista + "/api/Estoque";
 
             var produtoAtacadista = new Atacadista.Model.Produto() { Id = 1, Nome = "Teste1", Valor = 1 };
 
@@ -44,6 +45,13 @@ namespace IntegrationTest
             var produtoGravadoLojista = Get<List<Lojista.Model.Produto>>(caminhoProdutoLojista).Single();
             Assert.AreEqual(1, produtoGravadoLojista.Id);
             Assert.AreEqual("Teste1", produtoGravadoLojista.Nome);
+
+            // Popula o estoque do lojista e testa o cadastro/consulta
+            var estoqueP1 = new Lojista.Model.Estoque() { Produto = produtoGravadoLojista, Quantidade = 2 };
+            Put(caminhoProdutoEstoque + "/1", estoqueP1);
+            var estoqueLojista = Get<List<Lojista.Model.Estoque>>(caminhoProdutoEstoque).Single();
+            Assert.AreEqual(1, estoqueLojista.Produto.Id);
+            Assert.AreEqual(2, estoqueLojista.Quantidade);
         }
 
         /// <summary>
