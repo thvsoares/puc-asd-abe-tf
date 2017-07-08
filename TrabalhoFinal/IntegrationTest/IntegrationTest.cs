@@ -18,25 +18,32 @@ namespace IntegrationTest
         [TestMethod]
         public void TesteIntegracao()
         {
-                var caminhoAtacadista = "http://localhost:50396";
-                var caminhoProdutoAtacadista = caminhoAtacadista + "/api/Produto";
+            var caminhoAtacadista = "http://localhost:50396";
+            var caminhoProdutoAtacadista = caminhoAtacadista + "/api/Produto";
 
-                var caminhoLojista = "http://localhost:50404/";
-                var caminhoProdutoLojista = caminhoLojista + "/api/Produto";
+            var caminhoLojista = "http://localhost:50404/";
+            var caminhoProdutoLojista = caminhoLojista + "/api/Produto";
 
-                var produto = new Atacadista.Model.Produto() { Id = 1, Nome = "Teste1", Valor = 1 };
+            var produtoAtacadista = new Atacadista.Model.Produto() { Id = 1, Nome = "Teste1", Valor = 1 };
 
-                // Grava o produto no atacadista
-                Put(caminhoProdutoAtacadista + "/1", produto);
+            // Grava o produto no atacadista
+            Put(caminhoProdutoAtacadista + "/1", produtoAtacadista);
 
-                // Recupera os produtos do atacadista e chama single que retorna apenas e existir apenas um produto
-                // Abortaria com uma excption caso contrário
-                var produtoGravado = Get<List<Atacadista.Model.Produto>>(caminhoProdutoAtacadista).Single();
+            // Recupera os produtos do atacadista e chama single que retorna apenas e existir apenas um produto
+            // Abortaria com uma excption caso contrário
+            var produtoGravadoAtacadista = Get<List<Atacadista.Model.Produto>>(caminhoProdutoAtacadista).Single();
 
-                // Verifica se os dados do produto do atacadista continuam os mesmos
-                Assert.AreEqual(1, produtoGravado.Id);
-                Assert.AreEqual("Teste1", produtoGravado.Nome);
-                Assert.AreEqual(1, produtoGravado.Valor);
+            // Verifica se os dados do produto do atacadista continuam os mesmos
+            Assert.AreEqual(1, produtoGravadoAtacadista.Id);
+            Assert.AreEqual("Teste1", produtoGravadoAtacadista.Nome);
+            Assert.AreEqual(1, produtoGravadoAtacadista.Valor);
+
+            // Popula o produto do lojista e testa o cadastro/cosulta
+            var produtoLojista = new Lojista.Model.Produto() { Id = 1, Nome = "Teste1" };
+            Put(caminhoProdutoLojista + "/1", produtoLojista);
+            var produtoGravadoLojista = Get<List<Lojista.Model.Produto>>(caminhoProdutoLojista).Single();
+            Assert.AreEqual(1, produtoGravadoLojista.Id);
+            Assert.AreEqual("Teste1", produtoGravadoLojista.Nome);
         }
 
         /// <summary>
