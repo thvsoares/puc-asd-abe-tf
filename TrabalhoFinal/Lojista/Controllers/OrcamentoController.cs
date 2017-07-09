@@ -55,7 +55,7 @@ namespace Lojista.Controllers
         /// Aceita o orçamento informado
         /// </summary>
         /// <param name="id">Código do orçamento</param>
-        [HttpPatch("aceitar/{id}")]
+        [HttpPut("aceitar/{id}")]
         public void PatchAceitar(int id)
         {
             _atacadistaRepository.AceitarOrcamento(id);
@@ -65,7 +65,7 @@ namespace Lojista.Controllers
         /// Rejeita o orçamento informado
         /// </summary>
         /// <param name="id">Código do orçamento</param>
-        [HttpPatch("rejeitar/{id}")]
+        [HttpPut("rejeitar/{id}")]
         public void PatchRejeitar(int id)
         {
             _atacadistaRepository.RejeitarOrcamento(id);

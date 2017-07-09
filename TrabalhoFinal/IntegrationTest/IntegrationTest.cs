@@ -23,6 +23,7 @@ namespace IntegrationTest
         public const string CAMINHO_LOJISTA_PRODUTO = CAMINHO_LOJISTA + "/api/Produto";
         public const string CAMINHO_LOJISTA_ESTOQUE = CAMINHO_LOJISTA + "/api/Estoque";
         public const string CAMINHO_LOJISTA_PEDIDO = CAMINHO_LOJISTA + "/api/Pedido";
+        public const string CAMINHO_LOJISTA_ORCAMENTO = CAMINHO_LOJISTA + "/api/Orcamento";
 
         /// <summary>
         /// Inicializa os repositórios e configura os serviços
@@ -100,6 +101,13 @@ namespace IntegrationTest
                 .Orcamento;
             Assert.AreEqual(DateTime.Today.AddDays(10), orcamentoMaiorGravadoLojista.PrevisaoEntrega);
             Assert.AreEqual(20, orcamentoMaiorGravadoLojista.Valor);
+
+            // Passo 5.1 rejeitar orçamento
+            Put($"{CAMINHO_LOJISTA_ORCAMENTO}/rejeitar/{idOrcamentoMaior}", null);
+            var pedidoRejeitadoAtacadista = Get<List<Atacadista.Model.Pedido>>(CAMINHO_ATACADISTA_PEDIDO).Single(s => s.Id == idPedidoMaior);
+            var pedidoRejeitadoLojista = Get<Lojista.Model.Pedido>($"{CAMINHO_LOJISTA_PEDIDO}/{idPedidoMaior}");
+            Assert.AreEqual(Atacadista.Model.EstadoPedido.Finalizado, pedidoRejeitadoAtacadista.Estado);
+            Assert.AreEqual(Lojista.Model.EstadoPedido.Finalizado, pedidoRejeitadoLojista.Estado);
         }
 
         [TestMethod]
