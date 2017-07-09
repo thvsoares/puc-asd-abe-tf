@@ -38,7 +38,7 @@ namespace Atacadista.Controllers
         /// <param name="orcamento">Dados do orçamento com o id do pedido</param>
         /// <returns>Sequencial do orçamento gravado</returns>
         [HttpPost]
-        public int Post(Orcamento orcamento)
+        public int Post([FromBody]Orcamento orcamento)
         {
             var pedido = _atacadistaRepository.BuscarPedido(orcamento.IdPedido);
             pedido.Orcamento = orcamento;

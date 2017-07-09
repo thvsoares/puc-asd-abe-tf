@@ -15,12 +15,12 @@ namespace Atacadista.Model
 
         public void NotificarMudancaPedido(int id, EstadoPedido estado)
         {
-            Put($"{UrlLojista}/Pedido/AtualizarEstado/{id}/{estado}", null);
+            Put($"{UrlLojista}/api/Pedido/AtualizarEstado/{id}/{estado}", null);
         }
 
         public void PropostaOrcamento(Orcamento orcamento)
         {
-            Put($"{UrlLojista}/Orcamento/{orcamento.IdPedido}", null);
+            Put($"{UrlLojista}/api/Orcamento/{orcamento.IdPedido}", orcamento);
         }
 
         /// <summary>

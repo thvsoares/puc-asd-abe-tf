@@ -16,6 +16,7 @@ namespace IntegrationTest
         public const string CAMINHO_ATACADISTA_CONFIGURACAO = CAMINHO_ATACADISTA + "/api/Configuracao";
         public const string CAMINHO_ATACADISTA_PEDIDO = CAMINHO_ATACADISTA + "/api/Pedido";
         public const string CAMINHO_ATACADISTA_PRODUTO = CAMINHO_ATACADISTA + "/api/Produto";
+        public const string CAMINHO_ATACADISTA_ORCAMENTO = CAMINHO_ATACADISTA + "/api/Orcamento";
 
         public const string CAMINHO_LOJISTA = "http://localhost:50404/";
         public const string CAMINHO_LOJISTA_CONFIGURACAO = CAMINHO_LOJISTA + "/api/Configuracao";
@@ -71,6 +72,26 @@ namespace IntegrationTest
             Assert.AreEqual(1, pedidoMaiorGravadoLojista.Itens.Single().IdProduto);
             Assert.AreEqual(10, pedidoMaiorGravadoLojista.Itens.Single().Quantidade);
             Assert.AreEqual("Pedido maior", pedidoMaiorGravadoLojista.Itens.Single().Observacao);
+
+            // Passo 3 o atacadista recebe o pedido
+            var pedidoMaiorAtacadista = Get<List<Atacadista.Model.Pedido>>(CAMINHO_ATACADISTA_PEDIDO).Single(s => s.Id == idPedidoMaior);
+            Assert.AreEqual(Atacadista.Model.EstadoPedido.Solicitado, pedidoMaiorAtacadista.Estado);
+            Assert.AreEqual(1, pedidoMaiorAtacadista.Itens.Single().IdProduto);
+            Assert.AreEqual(10, pedidoMaiorAtacadista.Itens.Single().Quantidade);
+            Assert.AreEqual("Pedido maior", pedidoMaiorAtacadista.Itens.Single().Observacao);
+
+            // Passo 4 criação orçamento atacadista
+            var orcamentoMaiorAtacadista = new Atacadista.Model.Orcamento()
+            {
+                IdPedido = idPedidoMaior,
+                PrevisaoEntrega = DateTime.Today.AddDays(10),
+                Valor = 20
+            };
+            var idOrcamentoMaior = Post<int>(CAMINHO_ATACADISTA_ORCAMENTO, orcamentoMaiorAtacadista);
+            var orcamentoMaiorGravadoAtacadista = Get<List<Atacadista.Model.Orcamento>>(CAMINHO_ATACADISTA_ORCAMENTO).Single(s => s.Id == idOrcamentoMaior);
+            Assert.AreEqual(idPedidoMaior, orcamentoMaiorGravadoAtacadista.IdPedido);
+            Assert.AreEqual(DateTime.Today.AddDays(10), orcamentoMaiorGravadoAtacadista.PrevisaoEntrega);
+            Assert.AreEqual(20, orcamentoMaiorGravadoAtacadista.Valor);
         }
 
         [TestMethod]

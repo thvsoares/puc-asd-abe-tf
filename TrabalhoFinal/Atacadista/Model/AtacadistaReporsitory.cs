@@ -27,7 +27,8 @@ namespace Atacadista.Model
 
         public int GravarPedido(Pedido pedido)
         {
-            _context.Pedidos.Add(pedido);
+            if (pedido.Id == 0)
+                _context.Pedidos.Add(pedido);
             _context.SaveChanges();
             return pedido.Id;
         }
