@@ -25,10 +25,10 @@ namespace UnitTestLojista.Controller
         {
             _atacadistaRepository.UrlAtacadista = "";
 
-            _controller.Put("UrlAtacadista", "http://valor.camel.case:8080");
+            _controller.Put(new KeyValuePair<string, string>("UrlAtacadista", "http://valor.camel.case:8080"));
             Assert.AreEqual("http://valor.camel.case:8080", _atacadistaRepository.UrlAtacadista);
 
-            _controller.Put("urlatacadista", "http://valor.minusculo");
+            _controller.Put(new KeyValuePair<string, string>("urlatacadista", "http://valor.minusculo"));
             Assert.AreEqual("http://valor.minusculo", _atacadistaRepository.UrlAtacadista);
         }
 
@@ -36,7 +36,7 @@ namespace UnitTestLojista.Controller
         [ExpectedException(typeof(KeyNotFoundException))]
         public void ChaveInvalidaLojista()
         {
-            _controller.Put("ChaveInvalidaLojista", "teste");
+            _controller.Put(new KeyValuePair<string, string>("ChaveInvalidaLojista", "teste"));
         }
     }
 }

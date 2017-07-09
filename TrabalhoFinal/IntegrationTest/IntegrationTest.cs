@@ -13,9 +13,11 @@ namespace IntegrationTest
     public class IntegrationTest
     {
         public const string CAMINHO_ATACADISTA = "http://localhost:50396";
-        public const string CAMINHO_PRODUTO_ATACADISTA = CAMINHO_ATACADISTA + "/api/Produto";
+        public const string CAMINHO_ATACADISTA_CONFIGURACAO = CAMINHO_ATACADISTA + "/api/Configuracao";
+        public const string CAMINHO_ATACADISTA_PRODUTO = CAMINHO_ATACADISTA + "/api/Produto";
 
         public const string CAMINHO_LOJISTA = "http://localhost:50404/";
+        public const string CAMINHO_LOJISTA_CONFIGURACAO = CAMINHO_LOJISTA + "/api/Configuracao";
         public const string CAMINHO_LOJISTA_PRODUTO = CAMINHO_LOJISTA + "/api/Produto";
         public const string CAMINHO_LOJISTA_ESTOQUE = CAMINHO_LOJISTA + "/api/Estoque";
         public const string CAMINHO_LOJISTA_PEDIDO = CAMINHO_LOJISTA + "/api/Pedido";
@@ -29,7 +31,7 @@ namespace IntegrationTest
             var produtoAtacadista = new Atacadista.Model.Produto() { Id = 1, Nome = "Teste1", Valor = 1 };
 
             // Grava o produto no atacadista
-            Put(CAMINHO_PRODUTO_ATACADISTA + "/1", produtoAtacadista);
+            Put(CAMINHO_ATACADISTA_PRODUTO + "/1", produtoAtacadista);
 
             // Grava o produto no lojista
             var produtoLojista = new Lojista.Model.Produto() { Id = 1, Nome = "Teste1" };
@@ -39,6 +41,10 @@ namespace IntegrationTest
             // Grava o estoque do produto do lojista
             var estoqueP1 = new Lojista.Model.Estoque() { Produto = produtoGravadoLojista, Quantidade = 2 };
             Put(CAMINHO_LOJISTA_ESTOQUE + "/1", estoqueP1);
+
+            // Configura os caminhos de comunicação
+            Put(CAMINHO_ATACADISTA_CONFIGURACAO, new KeyValuePair<string, string>("UrlLojista", CAMINHO_LOJISTA));
+            Put(CAMINHO_LOJISTA_CONFIGURACAO, new KeyValuePair<string, string>("UrlAtacadista", CAMINHO_ATACADISTA));
         }
 
         /// <summary>
@@ -50,6 +56,20 @@ namespace IntegrationTest
             // Passo 1 verificação do estoque baixo do lojista
             var estoqueLojista = Get<List<Lojista.Model.Estoque>>(CAMINHO_LOJISTA_ESTOQUE).Single(s => s.Produto.Id == 1);
             Assert.IsTrue(estoqueLojista.Quantidade < 10);
+
+            // Passo 2 logista solicita o primeiro orçamento
+            var pedidoMaiorLojista = new Lojista.Model.Pedido()
+            {
+                Itens = new List<Lojista.Model.PedidoItem>(new Lojista.Model.PedidoItem[] {
+                    new Lojista.Model.PedidoItem(){ IdProduto = 1, Quantidade = 10, Observacao="Pedido maior" }
+                })
+            };
+            var idPedidoMairo = Post<int>(CAMINHO_LOJISTA_PEDIDO, pedidoMaiorLojista);
+            var pedidoMaiorGravadoLojista = Get<Lojista.Model.Pedido>($"{CAMINHO_LOJISTA_PEDIDO}/{idPedidoMairo}");
+            Assert.AreEqual(Lojista.Model.EstadoPedido.Solicitado, pedidoMaiorGravadoLojista.Estado);
+            Assert.AreEqual(1, pedidoMaiorGravadoLojista.Itens.Single().IdProduto);
+            Assert.AreEqual(10, pedidoMaiorGravadoLojista.Itens.Single().Quantidade);
+            Assert.AreEqual("Pedido maior", pedidoMaiorGravadoLojista.Itens.Single().Observacao);
         }
 
         [TestMethod]
@@ -57,7 +77,7 @@ namespace IntegrationTest
         {
             // Recupera os produtos do atacadista e chama single que retorna apenas e existir apenas um produto
             // Abortaria com uma excption caso contrário
-            var produtoGravadoAtacadista = Get<List<Atacadista.Model.Produto>>(CAMINHO_PRODUTO_ATACADISTA).Single(s => s.Id == 1);
+            var produtoGravadoAtacadista = Get<List<Atacadista.Model.Produto>>(CAMINHO_ATACADISTA_PRODUTO).Single(s => s.Id == 1);
 
             // Verifica se os dados do produto do atacadista continuam os mesmos
             Assert.AreEqual(1, produtoGravadoAtacadista.Id);

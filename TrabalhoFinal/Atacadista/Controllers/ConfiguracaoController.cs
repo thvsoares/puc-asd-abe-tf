@@ -25,14 +25,13 @@ namespace Atacadista.Controllers
         /// <summary>
         /// Atualiza uma configuração
         /// </summary>
-        /// <param name="key">Chave da configuração</param>
-        /// <param name="value">Novo valor para a configuração</param>
-        [HttpPut("key")]
-        public void Put(string key, [FromBody]string value)
+        /// <param name="configuracao">Chave valor com a configuracao a ser atualizada</param>
+        [HttpPut]
+        public void Put([FromBody]KeyValuePair<string, string> configuracao)
         {
-            switch (key.ToUpper())
+            switch (configuracao.Key.ToUpper())
             {
-                case "URLLOJISTA": _lojistaRepository.UrlLojista = value; break;
+                case "URLLOJISTA": _lojistaRepository.UrlLojista = configuracao.Value; break;
                 default: throw new KeyNotFoundException();
             }
         }
