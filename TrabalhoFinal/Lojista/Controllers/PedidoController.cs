@@ -25,6 +25,17 @@ namespace Lojista.Controllers
         }
 
         /// <summary>
+        /// Recupera um pedido pelo Id
+        /// </summary>
+        /// <param name="id">Código do pedido</param>
+        /// <returns>Dados do pedido</returns>
+        [HttpGet("{id}")]
+        public Pedido Get(int id)
+        {
+            return _lojistaRepository.BuscarPedido(id);
+        }
+
+        /// <summary>
         /// Realiza um pedido ao atacadista
         /// </summary>
         /// <param name="pedido">Dados do pedido</param>
