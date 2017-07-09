@@ -72,6 +72,7 @@ namespace IntegrationTest
             Assert.AreEqual(1, pedidoMaiorGravadoLojista.Itens.Single().IdProduto);
             Assert.AreEqual(10, pedidoMaiorGravadoLojista.Itens.Single().Quantidade);
             Assert.AreEqual("Pedido maior", pedidoMaiorGravadoLojista.Itens.Single().Observacao);
+            Assert.IsNull(pedidoMaiorGravadoLojista.Orcamento);
 
             // Passo 3 o atacadista recebe o pedido
             var pedidoMaiorAtacadista = Get<List<Atacadista.Model.Pedido>>(CAMINHO_ATACADISTA_PEDIDO).Single(s => s.Id == idPedidoMaior);
@@ -92,6 +93,13 @@ namespace IntegrationTest
             Assert.AreEqual(idPedidoMaior, orcamentoMaiorGravadoAtacadista.IdPedido);
             Assert.AreEqual(DateTime.Today.AddDays(10), orcamentoMaiorGravadoAtacadista.PrevisaoEntrega);
             Assert.AreEqual(20, orcamentoMaiorGravadoAtacadista.Valor);
+
+            // Passo 5 receber proposta oraçamento
+            var orcamentoMaiorGravadoLojista = Get<List<Atacadista.Model.Pedido>>(CAMINHO_ATACADISTA_PEDIDO)
+                .Single(s => s.Id == idPedidoMaior)
+                .Orcamento;
+            Assert.AreEqual(DateTime.Today.AddDays(10), orcamentoMaiorGravadoLojista.PrevisaoEntrega);
+            Assert.AreEqual(20, orcamentoMaiorGravadoLojista.Valor);
         }
 
         [TestMethod]
