@@ -14,6 +14,7 @@ namespace IntegrationTest
     {
         public const string CAMINHO_ATACADISTA = "http://localhost:50396";
         public const string CAMINHO_ATACADISTA_CONFIGURACAO = CAMINHO_ATACADISTA + "/api/Configuracao";
+        public const string CAMINHO_ATACADISTA_PEDIDO = CAMINHO_ATACADISTA + "/api/Pedido";
         public const string CAMINHO_ATACADISTA_PRODUTO = CAMINHO_ATACADISTA + "/api/Produto";
 
         public const string CAMINHO_LOJISTA = "http://localhost:50404/";
@@ -64,8 +65,8 @@ namespace IntegrationTest
                     new Lojista.Model.PedidoItem(){ IdProduto = 1, Quantidade = 10, Observacao="Pedido maior" }
                 })
             };
-            var idPedidoMairo = Post<int>(CAMINHO_LOJISTA_PEDIDO, pedidoMaiorLojista);
-            var pedidoMaiorGravadoLojista = Get<Lojista.Model.Pedido>($"{CAMINHO_LOJISTA_PEDIDO}/{idPedidoMairo}");
+            var idPedidoMaior = Post<int>(CAMINHO_LOJISTA_PEDIDO, pedidoMaiorLojista);
+            var pedidoMaiorGravadoLojista = Get<Lojista.Model.Pedido>($"{CAMINHO_LOJISTA_PEDIDO}/{idPedidoMaior}");
             Assert.AreEqual(Lojista.Model.EstadoPedido.Solicitado, pedidoMaiorGravadoLojista.Estado);
             Assert.AreEqual(1, pedidoMaiorGravadoLojista.Itens.Single().IdProduto);
             Assert.AreEqual(10, pedidoMaiorGravadoLojista.Itens.Single().Quantidade);
@@ -100,6 +101,29 @@ namespace IntegrationTest
             Assert.AreEqual(1, estoqueLojista.Produto.Id);
             Assert.AreEqual(2, estoqueLojista.Quantidade);
         }
+
+        //[TestMethod]
+        //public void GravacaoPedidoAtacadista()
+        //{
+        //    var pedido = new Atacadista.Model.Pedido()
+        //    {
+        //        Itens = new List<Atacadista.Model.PedidoItem>(new Atacadista.Model.PedidoItem[] {
+        //            new Atacadista.Model.PedidoItem()
+        //            {
+        //                IdProduto=1,
+        //                Quantidade= 2,
+        //                Observacao="Teste crud"
+        //            }
+        //        })
+        //    };
+
+        //    var idPedido = Post<int>(CAMINHO_ATACADISTA_PEDIDO, pedido);
+        //    var pedidoGravado = Get<List<Atacadista.Model.Pedido>>(CAMINHO_ATACADISTA_PEDIDO).Single(s => s.Id == idPedido);
+
+        //    Assert.AreEqual(1, pedido.Itens.Single().IdProduto);
+        //    Assert.AreEqual(2, pedido.Itens.Single().Quantidade);
+        //    Assert.AreEqual("Teste crud", pedido.Itens.Single().Observacao);
+        //}
 
         #region [ Helpers ]
         /// <summary>

@@ -15,19 +15,17 @@ namespace Lojista.Model
 
         public void AceitarOrcamento(int id)
         {
-            Put($"{UrlAtacadista}/orcamento/aceitar/{id}", null);
+            Put($"{UrlAtacadista}/api/orcamento/aceitar/{id}", null);
         }
 
         public void RejeitarOrcamento(int id)
         {
-            Put($"{UrlAtacadista}/orcamento/rejeitar/{id}", null);
+            Put($"{UrlAtacadista}/api/orcamento/rejeitar/{id}", null);
         }
 
         public int SolicitacaoPedido(Pedido pedido)
         {
-            var result = Post($"{UrlAtacadista}/pedido", pedido);
-            var id = JsonConvert.DeserializeObject<int>(result.Content.ReadAsStringAsync().Result);
-            return id;
+            return Post<int>($"{UrlAtacadista}/api/pedido", pedido);
         }
 
         /// <summary>
@@ -66,17 +64,20 @@ namespace Lojista.Model
         /// <summary>
         /// Grava um recurso com post numa uri
         /// </summary>
+        /// <typeparam name="T">Tipo para desserializar o conteúdo do retorno</typeparam>
         /// <param name="uri">Camiho do recurso a ser gravado</param>
         /// <param name="obj">Recurso a ser gravado</param>
-        /// <returns>Resultado da gravação</returns>
-        private HttpResponseMessage Post(string uri, object obj)
+        /// <returns>Conteúro da resposta transformada no tipo T</returns>
+        private T Post<T>(string uri, object obj)
         {
             using (var client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-                var json = JsonConvert.SerializeObject(obj);
-                var content = new StringContent(json, Encoding.UTF8, "application/json");
-                return client.PostAsync(uri, content).Result;
+                var jsonRequest = JsonConvert.SerializeObject(obj);
+                var content = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+                var httpResult = client.PostAsync(uri, content).Result;
+                var jsonResult = httpResult.Content.ReadAsStringAsync().Result;
+                return JsonConvert.DeserializeObject<T>(jsonResult);
             }
         }
     }

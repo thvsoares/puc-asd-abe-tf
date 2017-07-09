@@ -41,7 +41,7 @@ namespace Lojista.Controllers
         /// <param name="pedido">Dados do pedido</param>
         /// <returns>Sequencial do pedido retornado pelo atacadista</returns>
         [HttpPost]
-        public int Post(Pedido pedido)
+        public int Post([FromBody]Pedido pedido)
         {
             int idPedido = _atacadistaRepository.SolicitacaoPedido(pedido);
             pedido.Id = idPedido;
