@@ -11,7 +11,7 @@ namespace UnitTestLojista.Model
 
         public int OrcamentoRejeitado { get; set; } = 0;
 
-        public string UrlAtacadista { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string UrlAtacadista { get; set; }
 
         public void AceitarOrcamento(int id)
         {

@@ -47,6 +47,9 @@ namespace IntegrationTest
         [TestMethod]
         public void TesteIntegracao()
         {
+            // Passo 1 verificação do estoque baixo do lojista
+            var estoqueLojista = Get<List<Lojista.Model.Estoque>>(CAMINHO_LOJISTA_ESTOQUE).Single(s => s.Produto.Id == 1);
+            Assert.IsTrue(estoqueLojista.Quantidade < 10);
         }
 
         [TestMethod]
