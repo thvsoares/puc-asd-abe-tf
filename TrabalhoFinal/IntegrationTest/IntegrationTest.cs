@@ -108,6 +108,27 @@ namespace IntegrationTest
             var pedidoRejeitadoLojista = Get<Lojista.Model.Pedido>($"{CAMINHO_LOJISTA_PEDIDO}/{idPedidoMaior}");
             Assert.AreEqual(Atacadista.Model.EstadoPedido.Finalizado, pedidoRejeitadoAtacadista.Estado);
             Assert.AreEqual(Lojista.Model.EstadoPedido.Finalizado, pedidoRejeitadoLojista.Estado);
+
+            // Passo 5.2 aceitar orçamento
+            var pedidoMenor = new Lojista.Model.Pedido()
+            {
+                Itens = new List<Lojista.Model.PedidoItem>(new Lojista.Model.PedidoItem[] {
+                    new Lojista.Model.PedidoItem(){ IdProduto = 1, Quantidade = 5, Observacao = "Pedido menor" }
+                })
+            };
+            var idPedidoMenor = Post<int>(CAMINHO_LOJISTA_PEDIDO, pedidoMenor);
+            var orcamentoMenor = new Atacadista.Model.Orcamento()
+            {
+                IdPedido = idPedidoMenor,
+                PrevisaoEntrega = DateTime.Today,
+                Valor = 5
+            };
+            var idOrcamentoMenor = Post<int>(CAMINHO_ATACADISTA_ORCAMENTO, orcamentoMenor);
+            Put($"{CAMINHO_LOJISTA_ORCAMENTO}/aceitar/{idOrcamentoMenor}", null);
+            var pedidoAceitoAtacadista = Get<List<Atacadista.Model.Pedido>>(CAMINHO_ATACADISTA_PEDIDO).Single(s => s.Id == idPedidoMenor);
+            var pedidoAceitoLojista = Get<Lojista.Model.Pedido>($"{CAMINHO_LOJISTA_PEDIDO}/{idPedidoMenor}");
+            Assert.AreEqual(Atacadista.Model.EstadoPedido.Solicitado, pedidoAceitoAtacadista.Estado);
+            Assert.AreEqual(Lojista.Model.EstadoPedido.Solicitado, pedidoAceitoLojista.Estado);
         }
 
         [TestMethod]
