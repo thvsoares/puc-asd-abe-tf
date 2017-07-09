@@ -7,7 +7,7 @@ namespace UnitTestAtacadista.Model
 {
     public class LojistaMoqRepository : ILojistaRepository
     {
-        public string UrlLojista { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string UrlLojista { get; set; }
 
         public void NotificarMudancaPedido(int id, EstadoPedido solicitado)
         {

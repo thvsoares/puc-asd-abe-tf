@@ -1,9 +1,9 @@
-﻿using Lojista.Model;
+﻿using Atacadista.Model;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 
-namespace Lojista.Controllers
+namespace Atacadista.Controllers
 {
     /// <summary>
     /// Gerência a configuração do lojista
@@ -11,15 +11,15 @@ namespace Lojista.Controllers
     [Route("api/[controller]")]
     public class ConfiguracaoController : Controller
     {
-        private IAtacadistaRepository _atacadistaRepository;
+        private ILojistaRepository _lojistaRepository;
 
         /// <summary>
         /// Construtor com injeção de depêndencia
         /// </summary>
-        /// <param name="atacadistaRepository">Repositório do atacadista</param>
-        public ConfiguracaoController(IAtacadistaRepository atacadistaRepository)
+        /// <param name="lojistaRepository">Repositório do lojista</param>
+        public ConfiguracaoController(ILojistaRepository lojistaRepository)
         {
-            _atacadistaRepository = atacadistaRepository;
+            _lojistaRepository = lojistaRepository;
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace Lojista.Controllers
         {
             switch (key.ToUpper())
             {
-                case "URLATACADISTA": _atacadistaRepository.UrlAtacadista = value; break;
+                case "URLLOJISTA": _lojistaRepository.UrlLojista = value; break;
                 default: throw new KeyNotFoundException();
             }
         }

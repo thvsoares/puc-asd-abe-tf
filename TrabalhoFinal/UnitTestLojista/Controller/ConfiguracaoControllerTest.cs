@@ -34,9 +34,9 @@ namespace UnitTestLojista.Controller
 
         [TestMethod]
         [ExpectedException(typeof(KeyNotFoundException))]
-        public void ChaveInvalida()
+        public void ChaveInvalidaLojista()
         {
-            _controller.Put("ChaveInvalida", "teste");
+            _controller.Put("ChaveInvalidaLojista", "teste");
         }
     }
 }
