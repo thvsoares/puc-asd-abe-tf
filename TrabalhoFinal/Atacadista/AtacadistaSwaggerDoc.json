@@ -1,0 +1,467 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "v1",
+        "title": "API V1"
+    },
+    "basePath": "/",
+    "paths": {
+        "/api/Configuracao": {
+            "put": {
+                "tags": [
+                    "Configuracao"
+                ],
+                "summary": "Atualiza uma configuraÃ§Ã£o",
+                "operationId": "ApiConfiguracaoPut",
+                "consumes": [
+                    "application/json",
+                    "text/json",
+                    "application/json-patch+json"
+                ],
+                "produces": [],
+                "parameters": [
+                    {
+                        "name": "configuracao",
+                        "in": "body",
+                        "description": "Chave valor com a configuracao a ser atualizada",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/KeyValuePair[String,String]"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/api/Orcamento": {
+            "get": {
+                "tags": [
+                    "Orcamento"
+                ],
+                "summary": "Recupera os orÃ§amentos",
+                "operationId": "ApiOrcamentoGet",
+                "consumes": [],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Orcamento"
+                            }
+                        }
+                    }
+                },
+                "deprecated": false
+            },
+            "post": {
+                "tags": [
+                    "Orcamento"
+                ],
+                "summary": "Grava o orÃ§amento de um pedido",
+                "operationId": "ApiOrcamentoPost",
+                "consumes": [
+                    "application/json",
+                    "text/json",
+                    "application/json-patch+json"
+                ],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "orcamento",
+                        "in": "body",
+                        "description": "Dados do orÃ§amento com o id do pedido",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Orcamento"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "format": "int32",
+                            "type": "integer"
+                        }
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/api/Orcamento/aceitar/{id}": {
+            "put": {
+                "tags": [
+                    "Orcamento"
+                ],
+                "summary": "Aceita o orÃ§amento informado",
+                "operationId": "ApiOrcamentoAceitarByIdPut",
+                "consumes": [],
+                "produces": [],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "CÃ³digo do orÃ§amento",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/api/Orcamento/rejeitar/{id}": {
+            "put": {
+                "tags": [
+                    "Orcamento"
+                ],
+                "summary": "Rejeita o orÃ§amento informado",
+                "operationId": "ApiOrcamentoRejeitarByIdPut",
+                "consumes": [],
+                "produces": [],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "CÃ³digo do orÃ§amento",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/api/Pedido": {
+            "get": {
+                "tags": [
+                    "Pedido"
+                ],
+                "summary": "Recupera a lista de pedidos",
+                "operationId": "ApiPedidoGet",
+                "consumes": [],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Pedido"
+                            }
+                        }
+                    }
+                },
+                "deprecated": false
+            },
+            "post": {
+                "tags": [
+                    "Pedido"
+                ],
+                "summary": "Grava um pedido",
+                "operationId": "ApiPedidoPost",
+                "consumes": [
+                    "application/json",
+                    "text/json",
+                    "application/json-patch+json"
+                ],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "pedido",
+                        "in": "body",
+                        "description": "Dados de pedido",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Pedido"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "format": "int32",
+                            "type": "integer"
+                        }
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/api/Pedido/fabricar/{id}": {
+            "put": {
+                "tags": [
+                    "Pedido"
+                ],
+                "summary": "Muda o estado de um pedido para em fabricaÃ§Ã£o e notifica o cliente",
+                "operationId": "ApiPedidoFabricarByIdPut",
+                "consumes": [],
+                "produces": [],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "CÃ³digo do pedido",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/api/Pedido/despachar/{id}": {
+            "put": {
+                "tags": [
+                    "Pedido"
+                ],
+                "summary": "Muda o estado de um pedido para despachado e notifica o cliente",
+                "operationId": "ApiPedidoDespacharByIdPut",
+                "consumes": [],
+                "produces": [],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "CÃ³digo do pedido",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/api/Produto": {
+            "get": {
+                "tags": [
+                    "Produto"
+                ],
+                "summary": "Recupera a lista de produtos cadastrados",
+                "operationId": "ApiProdutoGet",
+                "consumes": [],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Produto"
+                            }
+                        }
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/api/Produto/{id}": {
+            "put": {
+                "tags": [
+                    "Produto"
+                ],
+                "summary": "Cadastra um produto com um id especÃ­fico",
+                "operationId": "ApiProdutoByIdPut",
+                "consumes": [
+                    "application/json",
+                    "text/json",
+                    "application/json-patch+json"
+                ],
+                "produces": [],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "CÃ³digo do produto",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "produto",
+                        "in": "body",
+                        "description": "Dados do produto a ser cadastrado",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Produto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "deprecated": false
+            }
+        }
+    },
+    "definitions": {
+        "KeyValuePair[String,String]": {
+            "type": "object",
+            "properties": {
+                "key": {
+                    "type": "string",
+                    "readOnly": true
+                },
+                "value": {
+                    "type": "string",
+                    "readOnly": true
+                }
+            }
+        },
+        "Orcamento": {
+            "description": "OrÃ§amento de um pedido",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "format": "int32",
+                    "description": "CÃ³digo do orÃ§amento",
+                    "type": "integer"
+                },
+                "idPedido": {
+                    "format": "int32",
+                    "description": "CÃ³digo do pedido",
+                    "type": "integer"
+                },
+                "valor": {
+                    "format": "float",
+                    "description": "Valor do orÃ§amento",
+                    "type": "number"
+                },
+                "previsaoEntrega": {
+                    "format": "date-time",
+                    "description": "Data prevista de entrega",
+                    "type": "string"
+                }
+            }
+        },
+        "Pedido": {
+            "description": "Representa um pedido",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "format": "int32",
+                    "description": "CÃ³digo do pedido",
+                    "type": "integer"
+                },
+                "estado": {
+                    "format": "int32",
+                    "description": "Estado do pedido",
+                    "enum": [
+                        0,
+                        1,
+                        2,
+                        3
+                    ],
+                    "type": "integer"
+                },
+                "orcamento": {
+                    "$ref": "#/definitions/Orcamento",
+                    "description": "OrÃ§amento do pedido"
+                },
+                "itens": {
+                    "description": "Lista de itens do pedido",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/PedidoItem"
+                    }
+                }
+            }
+        },
+        "PedidoItem": {
+            "description": "Entrada de produto num pedido",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "format": "int32",
+                    "description": "CÃ³digo do pedido",
+                    "type": "integer"
+                },
+                "idProduto": {
+                    "format": "int32",
+                    "description": "CÃ³digo do produto",
+                    "type": "integer"
+                },
+                "quantidade": {
+                    "format": "int32",
+                    "description": "Quantidade de unidades do produto",
+                    "type": "integer"
+                },
+                "observacao": {
+                    "description": "ObservaÃ§Ã£o do pedido",
+                    "type": "string"
+                }
+            }
+        },
+        "Produto": {
+            "description": "Representa um produto com os dados relevantes para o atacadista",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "format": "int32",
+                    "description": "CÃ³digo do produto",
+                    "type": "integer"
+                },
+                "nome": {
+                    "description": "Nome do produto",
+                    "type": "string"
+                },
+                "valor": {
+                    "format": "float",
+                    "description": "Valor de uma unidade",
+                    "type": "number"
+                }
+            }
+        }
+    },
+    "securityDefinitions": {}
+}
